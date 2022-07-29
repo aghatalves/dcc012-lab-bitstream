@@ -1,4 +1,3 @@
-
 #include "bitstream.h"
 
 #include <iostream>
@@ -14,13 +13,17 @@ bitStream::bitStream():
 // TODO: implementar o método setBit.
 void bitStream::setBit(uint8_t pos, uint8_t bit)
 {
-
-    
+    if (bit) {
+        this->buffer = this->buffer | (bit << pos);
+    }  
 }
 
 // TODO: implementar o método getBit.
 uint8_t bitStream::getBit(uint8_t k)
 {
+    uint8_t mask = 1;
+    mask = mask << k;
+    return (this->buffer & mask) >> k;
 
 
 }
@@ -117,7 +120,7 @@ uint8_t inPutBitStream::readBit()
 // ou seja, se todos os bits foram lidos.
 bool inPutBitStream::eof()
 {
-    return bitCount == 0;
+    return bitCount < 0;
 }
 
 void inPutBitStream::close()
